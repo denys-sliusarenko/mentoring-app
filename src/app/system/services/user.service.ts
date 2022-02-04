@@ -13,7 +13,7 @@ export class UserService extends BaseAPI {
     super(http);
   }
 
-  getAllUsers():Observable<IUser[]>{
+  getAllUsers(): Observable<IUser[]> {
     return this.get('/api/users')
   }
 }
