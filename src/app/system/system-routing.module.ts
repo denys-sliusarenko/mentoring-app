@@ -6,8 +6,9 @@ import { SystemComponent } from './system.component';
 
 const routes: Routes = [
   {
-    path: '', component:SystemComponent
-    // path: 'system', loadChildren: () => import('../app/system/system.module').then(m => m.SystemModule)
+    path: '', component: SystemComponent, children: [
+      { path: 'user', loadChildren: () => import('../system/modules/user/user.module').then(m => m.UserModule) },
+    ]
   },
 ];
 
@@ -17,6 +18,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  exports:[RouterModule]
+  exports: [RouterModule]
 })
 export class SystemRoutingModule { }
