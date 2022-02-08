@@ -19,4 +19,16 @@ export class BaseAPI {
     public get(url: string = ''): Observable<any> {
         return this.http.get(this.getUrl(url))
     }
+
+    public post(url: string = '', body: any): Observable<any> {
+        return this.http.post(this.getUrl(url), body)
+    }
+
+    public delete(url: string = ''): Observable<any> {
+        return this.http.delete(this.getUrl(url))
+    }
+
+    public put(url: string = '', body: any): Observable<any> {
+        return this.http.put(this.getUrl(url), body)
+    }
 }
