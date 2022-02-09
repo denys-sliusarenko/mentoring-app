@@ -25,7 +25,8 @@ export class OwnerService extends BaseAPI {
   }
 
 
-  createOwner(model: OwnerCreateModel): Observable<IOwner[]> {
+  createOwner(model: OwnerCreateModel): Observable<IOwner> {
+   // console.log(model)
     return this.post("/api/owners", model)
   }
 
@@ -33,7 +34,7 @@ export class OwnerService extends BaseAPI {
     return this.delete(`/api/owners/id=${Id}`)
   }
 
-  updateOwner(model: OwnerUpdateModel): Observable<IOwner[]> {
+  updateOwner(model: OwnerUpdateModel): Observable<IOwner> {
     return this.put("/api/owners", model)
   }
 
