@@ -1,0 +1,52 @@
+<div *ngIf="!isOwnersLoaded">
+  <app-loader></app-loader>
+</div>
+<div *ngIf="isOwnersLoaded">
+
+<h3>Add new owner</h3>
+<hr>
+  <form [formGroup]="ownerCreateForm" novalidate class="example-form"  ><!--(ngSubmit)="saveNewOwner()"-->
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>First name</mat-label>
+            <input matInput name="firstName" formControlName="firstName">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput name="lastName" formControlName="lastName">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td style="float: right;">
+          <button type="button" mat-stroked-button color="primary" [disabled]="ownerCreateForm.invalid" (click)="saveNewOwner()" >Save</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <h3>All owners</h3>
+<hr>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{element.id}}</td>
+    </ng-container>
+    <ng-container matColumnDef="FirstName">
+      <th mat-header-cell *matHeaderCellDef>First Name</th>
+      <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="LastName">
+      <th mat-header-cell *matHeaderCellDef>Last Name</th>
+      <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

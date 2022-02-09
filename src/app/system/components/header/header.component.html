@@ -1,0 +1,12 @@
+<div style="margin-left: 1%;margin-right: 1%; background-color: rgb(26, 211, 88);">
+    <a mat-button routerLinkActive="activeLink" routerLink="owners">Owners</a>
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+    </mat-menu>
+
+    <a mat-button routerLinkActive="activeLink" routerLink="cars">Cars</a>
+    <mat-menu #belowMenu="matMenu">
+    </mat-menu>
+</div>
+<div style="margin-top: 1%; margin-left: 1%;margin-right: 1%;">
+    <router-outlet></router-outlet>
+</div>
