@@ -6,12 +6,14 @@ import { OwnerModule } from './modules/owner/owner.module';
 import { CarModule } from './modules/car/car.module';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
-import { CarComponent } from './components/car/car.component';
+import { OwnerCarsModule } from './modules/owner-cars/owner-cars.module';
+import { OwnerCarsComponent } from './components/owner-cars/owner-cars.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SystemComponent
+    SystemComponent,
+    OwnerCarsComponent
   ],
   imports: [
     CommonModule,
@@ -19,6 +21,7 @@ import { CarComponent } from './components/car/car.component';
     SystemRoutingModule,
     OwnerModule,
     CarModule,
+    OwnerCarsModule
   ]
 })
 export class SystemModule { }
