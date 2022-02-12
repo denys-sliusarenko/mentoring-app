@@ -7,13 +7,11 @@ import { CarModule } from './modules/car/car.module';
 import { SharedModule } from '../shared/shared.module';
 import { HeaderComponent } from './components/header/header.component';
 import { OwnerCarsModule } from './modules/owner-cars/owner-cars.module';
-import { OwnerCarsComponent } from './components/owner-cars/owner-cars.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SystemComponent,
-    OwnerCarsComponent
   ],
   imports: [
     CommonModule,

@@ -26,7 +26,6 @@ export class OwnerService extends BaseAPI {
 
 
   createOwner(model: OwnerCreateModel): Observable<IOwner> {
-   // console.log(model)
     return this.post("/api/owners", model)
   }
 
