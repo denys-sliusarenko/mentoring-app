@@ -2,6 +2,38 @@
     <app-loader></app-loader>
 </div>
 <div *ngIf="isCarsLoaded">
+<h3>Add new car</h3>
+<hr>
+  <form [formGroup]="carCreateForm" novalidate class="example-form"  ><!--(ngSubmit)="saveNewOwner()"-->
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Brand</mat-label>
+            <input matInput name="brand" formControlName="brand">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Color</mat-label>
+            <input matInput name="color" formControlName="color">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td style="float: right;">
+          <button type="button" mat-stroked-button color="primary" [disabled]="carCreateForm.invalid" (click)="saveNewCar()" >Save</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+
+<h3>All cars</h3>
+<hr>
+<div *ngIf="isCarsLoaded">
     <table mat-table [dataSource]="cars" class="mat-elevation-z8 demo-table">
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -18,4 +50,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+</div>
 </div>
