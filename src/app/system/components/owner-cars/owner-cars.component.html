@@ -1,0 +1,11 @@
+<div style="margin-left: 1%;margin-right: 1%;">
+    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
+        <a mat-tab-link *ngFor="let link of links" routerLinkActive="activeLink" routerLink="{{link.path}}"
+            (click)="activeLink = link.path" [active]="activeLink == link.path"> {{link.tabName}} </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+        <div style="margin-top: 1%;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-tab-nav-panel>
+</div>

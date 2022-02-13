@@ -14,6 +14,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   exports: [
     FormsModule,
@@ -51,7 +57,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatSelectModule
   ]
 })
 export class SharedModule { }

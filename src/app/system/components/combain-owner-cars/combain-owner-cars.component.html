@@ -1,0 +1,87 @@
+<form [formGroup]="ownerCarCreateForm" novalidate class="example-form">
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field appearance="fill">
+                    <mat-label>Owner</mat-label>
+                    <mat-select name="ownerId" formControlName="ownerId">
+                        <!-- (onSelectionChange)="someMethod($event, owner)"-->
+                        <mat-option *ngFor="let owner of owners" (onSelectionChange)="changeSelectedOwner($event,owner)"
+                            [value]="owner.id">{{owner.firstName}} {{owner.lastName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="fill">
+                    <mat-label>Car</mat-label>
+                    <mat-select name="carId" formControlName="carId">
+                        <mat-option *ngFor="let car of cars" [value]="car.id">{{car.brand}}, color: {{car.color}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Registry number</mat-label>
+                    <input matInput name="registrationNumber" formControlName="registrationNumber">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td style="float: right;">
+                <button type="button" mat-stroked-button color="primary" (click)="saveOwnerCar()"
+                    [disabled]="ownerCarCreateForm.invalid">Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+<div *ngIf="!isOwnerCarsLoaded&&selectedOwner==undefined else ownerCarsBlock">
+</div>
+
+<ng-template #ownerCarsBlock>
+    <div *ngIf="!isOwnerCarsLoaded&&selectedOwner!=undefined else ownerCarTable ">
+        <app-loader></app-loader>
+    </div>
+    <ng-template #ownerCarTable>
+        <h3 *ngIf="selectedOwner!=undefined">Cars {{selectedOwner.firstName+" "+selectedOwner.lastName}}</h3>
+        <hr>
+        <div *ngIf="dataSource.data.length!=0 else ownerNotHaveCars">
+            <table [dataSource]="dataSource" mat-table class="mat-elevation-z8 demo-table">
+                <ng-container matColumnDef="index">
+                    <th mat-header-cell *matHeaderCellDef> # </th>
+                    <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Color">
+                    <th mat-header-cell *matHeaderCellDef>Color</th>
+                    <td mat-cell *matCellDef="let element">{{element.car.color}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Brand">
+                    <th mat-header-cell *matHeaderCellDef>Brand</th>
+                    <td mat-cell *matCellDef="let element">{{element.car.brand}}</td>
+                </ng-container>
+                <ng-container matColumnDef="RegistrationNumber">
+                    <th mat-header-cell *matHeaderCellDef>Registration number</th>
+                    <td mat-cell *matCellDef="let element">{{element.registrationNumber}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-raised-button color="warn" (click)="deleteOwnerCar(element.id)">Delete</button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <ng-template #ownerNotHaveCars>
+            <p style="color:red">This owner doesn't have any cars</p>
+        </ng-template>
+        <ng-template>
+        </ng-template>

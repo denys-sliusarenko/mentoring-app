@@ -10,11 +10,8 @@ const routes: Routes = [
  path: '', component: SystemComponent, children: [
         { path: 'owners', loadChildren: () => import('./modules/owner/owner.module').then(m => m.OwnerModule) },
         { path: 'cars', loadChildren: () => import('./modules/car/car.module').then(m => m.CarModule) },
-
+        { path: 'owner-cars', loadChildren: () => import('./modules/owner-cars/owner-cars.module').then(m => m.OwnerCarsModule) },
    ]
-    // path: '', component: SystemComponent, children: [
-    //    { path: 'owners', loadChildren: () => import('./modules/owner/owner.module').then(m => m.OwnerModule) },
-    // ]
   },
 ];
 

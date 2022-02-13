@@ -1,7 +1,7 @@
 import { Guid } from "guid-typescript";
 
 export interface IOwner {
-    id: Guid,
+    id: string,
     firstName: string,
     lastName: string
 }

@@ -1,7 +1,7 @@
-<div *ngIf="!isOwnersLoaded">
+<div *ngIf="!isOwnersLoaded else ownersLoaded">
   <app-loader></app-loader>
 </div>
-<div *ngIf="isOwnersLoaded">
+<ng-template #ownersLoaded>
 
 <h3>Add new owner</h3>
 <hr>
@@ -49,4 +49,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>
+</ng-template>

@@ -1,0 +1,15 @@
+<div *ngIf="!isOwnersLoaded else ownerCarsExpand">
+    <app-loader></app-loader>
+</div>
+<ng-template #ownerCarsExpand>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let owner of owners" #mep="matExpansionPanel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{owner.firstName }} {{owner.lastName}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <app-registry-cars-owner *ngIf="mep.expanded" [idOwner]="owner.id"></app-registry-cars-owner>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ng-template> 
