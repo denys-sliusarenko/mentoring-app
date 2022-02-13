@@ -24,7 +24,7 @@ export class AddOwnerCarsComponent implements OnInit {
   cars: ICar[] = []
   isOwnersLoaded = false
   isCarsLoaded = false
-  selectedOwner: any;
+  selectedOwner: IOwner|undefined;
   ownerCarCreateForm = new FormGroup({
     "carId": new FormControl('', Validators.required),
     "ownerId": new FormControl('', Validators.required),
@@ -59,6 +59,7 @@ export class AddOwnerCarsComponent implements OnInit {
       });
 
       this.ownerCarCreateForm.reset()
+      this.selectedOwner=undefined
     }
     )
   }

@@ -12,7 +12,6 @@ export class RegistryCarsOwnerComponent implements OnInit {
 
   constructor(private ownerCarsService: OwnerCarsService) { }
 
-  //@Input() idOwner =''
   ownerCars: IOwnerCar[] = []
   isOwnerCarsLoaded = false
   displayedColumns: string[] = ['index', 'RegistrationNumber', 'Color', 'Brand'];
