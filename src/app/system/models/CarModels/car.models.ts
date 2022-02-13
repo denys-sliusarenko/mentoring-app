@@ -1,7 +1,7 @@
 import { Guid } from "guid-typescript";
 
 export interface ICar{
-    id: Guid,
+    id: string,
     brand: string,
     color: string
 }

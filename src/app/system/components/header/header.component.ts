@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  links = [{ path: 'owners', tabName: 'Owners' }, { path: 'cars', tabName: 'Cars' }, { path: 'owner-cars', tabName: 'Owner cars' }];
+  links = [
+    { path: 'owners', tabName: 'Owners' },
+    { path: 'cars', tabName: 'Cars' },
+    { path: 'owner-cars', tabName: 'Owner cars' }];
+
   activeLink = ''
 }

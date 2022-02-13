@@ -39,10 +39,6 @@ export class OwnerComponent implements OnInit {
     })
   }
 
-  public updateOwner() {
-
-  }
-
   saveNewOwner() {
     const formData = this.ownerCreateForm.value
     var model = new OwnerCreateModel(formData.firstName, formData.lastName)

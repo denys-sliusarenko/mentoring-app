@@ -1,0 +1,45 @@
+  <form [formGroup]="ownerCarCreateForm" novalidate class="example-form"  >
+  <table class="example-full-width" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field appearance="fill" >
+            <mat-label>Owner</mat-label>
+            <mat-select  name="ownerId" formControlName="ownerId" ><!-- (onSelectionChange)="someMethod($event, owner)"-->
+              <mat-option  *ngFor="let owner of owners"  (onSelectionChange)="changeSelectedOwner($event,owner)" [value]="owner.id" >{{owner.firstName}} {{owner.lastName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance="fill">
+            <mat-label>Car</mat-label>
+            <mat-select  name="carId" formControlName="carId">
+              <mat-option *ngFor="let car of cars" [value]="car.id">{{car.brand}}, color: {{car.color}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Registry number</mat-label>
+            <input  matInput name="registrationNumber" formControlName="registrationNumber">
+          </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+      <td style="float: right;">
+        <button type="button" mat-stroked-button color="primary"
+        (click)="saveOwnerCar()" [disabled]="ownerCarCreateForm.invalid" >Save</button> 
+      </td>
+    </tr>
+  </table>
+  </form>
+
+ 
+  <div *ngIf='selectedOwner!=undefined'> 
+    <h3>Cars {{selectedOwner.firstName+" "+selectedOwner.lastName}}</h3>
+    <hr>
+  <app-registry-cars-owner [idOwner]="selectedOwner.id"></app-registry-cars-owner>
+ </div> 

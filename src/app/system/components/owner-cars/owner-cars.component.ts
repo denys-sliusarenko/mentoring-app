@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IOwner } from '../../models/OwnerModels/owner.model';
-import { OwnerService } from '../../services/owner.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-owner-cars',
@@ -9,16 +8,20 @@ import { OwnerService } from '../../services/owner.service';
 })
 export class OwnerCarsComponent implements OnInit {
 
-  constructor(private ownerService: OwnerService) { }
+  constructor(private route: ActivatedRoute) { }
   
-  owners: IOwner[] = []
-  isOwnersLoaded = false
-
   ngOnInit(): void {
-
-    this.ownerService.getAllOwners().subscribe((response: IOwner[]) => {
-      this.owners = response
-      this.isOwnersLoaded = true
-    })
+    if (this.route.snapshot.children[0] == undefined) {
+      this.activeLink = ''
+    }
+    else {
+      this.activeLink = this.route.snapshot.children[0].url[0].path
+    }
   }
+
+  links = [
+    { path: 'all-owner-cars', tabName: 'All owners and cars' },
+    { path: 'add-owner-cars', tabName: 'Add owner cars' }];
+
+  activeLink =this.links[0].path 
 }

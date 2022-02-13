@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseAPI } from 'src/app/shared/core/base-api';
-import { Guid } from "guid-typescript";
 import { IOwner } from '../models/OwnerModels/owner.model';
 import { OwnerCreateModel } from '../models/OwnerModels/ownerCreate.model';
 import { OwnerUpdateModel } from '../models/OwnerModels/ownerUpdate.model';
@@ -20,7 +19,7 @@ export class OwnerService extends BaseAPI {
     return this.get('/api/owners')
   }
 
-  getOwner(Id: Guid): Observable<IOwner[]> {
+  getOwner(Id: string): Observable<IOwner[]> {
     return this.get(`/api/owners/id=${Id}`)
   }
 
@@ -29,7 +28,7 @@ export class OwnerService extends BaseAPI {
     return this.post("/api/owners", model)
   }
 
-  deleteOwner(Id: Guid): Observable<IOwner[]> {
+  deleteOwner(Id: string): Observable<IOwner[]> {
     return this.delete(`/api/owners/id=${Id}`)
   }
 

@@ -11,7 +11,7 @@ import { OwnerCarsModule } from './modules/owner-cars/owner-cars.module';
 @NgModule({
   declarations: [
     HeaderComponent,
-    SystemComponent,
+    SystemComponent
   ],
   imports: [
     CommonModule,
