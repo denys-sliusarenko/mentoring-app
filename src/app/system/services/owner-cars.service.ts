@@ -21,4 +21,8 @@ export class OwnerCarsService extends BaseAPI {
   createOwnerCar(model: OwnerCarCreateModel): Observable<IOwnerCar> {
     return this.post('/api/ownercar/addCarOwner',model)
   }
+
+  deleteOwnerCar(IdOwnerCar:string): Observable<IOwnerCar> {
+    return this.delete(`/api/ownercar/${IdOwnerCar}`)
+  }
 }

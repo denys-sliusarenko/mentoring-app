@@ -21,7 +21,7 @@ export class OwnerCarsComponent implements OnInit {
 
   links = [
     { path: 'all-owner-cars', tabName: 'All owners and cars' },
-    { path: 'add-owner-cars', tabName: 'Add owner cars' }];
+    { path: 'combain-owner-cars', tabName: 'Combain owner cars' }];
 
   activeLink =this.links[0].path 
 }
