@@ -9,7 +9,7 @@ export class BaseAPI {
     private readonly baseServeUrl;
 
     constructor(public http: HttpClient) {
-        this.baseServeUrl = environment.api.host;
+        this.baseServeUrl = environment.api.host
     }
 
     private getUrl(url: string = ''): string {

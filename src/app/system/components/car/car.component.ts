@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CarCreateModel } from '../../models/CarModels/car-create.model';
 import { ICar } from '../../models/CarModels/car.models';
 import { CarService } from '../../services/car.service';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-car',
@@ -14,7 +15,8 @@ import { CarService } from '../../services/car.service';
 export class CarComponent implements OnInit {
 
   constructor(private carService: CarService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar, 
+    private reportService: ReportService) { }
 
   displayedColumns: string[] = ['id', 'brand', 'color'];
   cars: ICar[] = []
@@ -33,6 +35,10 @@ export class CarComponent implements OnInit {
       this.dataSource.data = this.cars
       this.isCarsLoaded = true
     })
+  }
+
+  getCarsReport(){
+    this.reportService.getCarsTextReport()
   }
 
   saveNewCar(){

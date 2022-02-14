@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IOwner } from '../../models/OwnerModels/owner.model';
 import { OwnerCreateModel } from '../../models/OwnerModels/ownerCreate.model';
 import { OwnerService } from '../../services/owner.service';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-owner',
@@ -14,7 +15,8 @@ import { OwnerService } from '../../services/owner.service';
 export class OwnerComponent implements OnInit {
 
   constructor(private ownerService: OwnerService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private reportService: ReportService) {
     this.ownerCreateForm = new FormGroup({
       "firstName": new FormControl('', Validators.required),
       "lastName": new FormControl('', Validators.required),
@@ -54,5 +56,9 @@ export class OwnerComponent implements OnInit {
       this.ownerCreateForm.reset()
     }
     )
+  }
+
+  getOwnersReport() {
+    this.reportService.getOwnersTextReport()
   }
 }
