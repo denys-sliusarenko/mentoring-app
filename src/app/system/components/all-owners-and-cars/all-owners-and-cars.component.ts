@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IOwner } from '../../models/OwnerModels/owner.model';
 import { OwnerService } from '../../services/owner.service';
+import { ReportService } from '../../services/report.service';
 
 @Component({
   selector: 'app-all-owners-and-cars',
@@ -9,7 +10,7 @@ import { OwnerService } from '../../services/owner.service';
 })
 export class AllOwnersAndCarsComponent implements OnInit {
 
-  constructor(private ownerService: OwnerService) { }
+  constructor(private ownerService: OwnerService,private reportService:ReportService) { }
 
   owners: IOwner[] = []
   isOwnersLoaded = false
@@ -20,5 +21,7 @@ export class AllOwnersAndCarsComponent implements OnInit {
        this.isOwnersLoaded = true
      })
   }
-
+  getOwnerCarsTextReport(){
+    this.reportService.getOwnerCarsTextReport();
+  }
 }
