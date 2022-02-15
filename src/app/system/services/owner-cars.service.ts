@@ -22,7 +22,7 @@ export class OwnerCarsService extends BaseAPI {
     return this.post('/api/ownercar/addCarOwner',model)
   }
 
-  deleteOwnerCar(IdOwnerCar:string): Observable<IOwnerCar> {
+  deleteOwnerCar(IdOwnerCar:string) {
     return this.delete(`/api/ownercar/${IdOwnerCar}`)
   }
 }
