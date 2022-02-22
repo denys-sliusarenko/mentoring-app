@@ -29,7 +29,7 @@ export class OwnerService extends BaseAPI {
   }
 
   deleteOwner(Id: string): Observable<IOwner[]> {
-    return this.delete(`/api/owners/id=${Id}`)
+    return this.delete(`/api/owners/${Id}`)
   }
 
   updateOwner(model: OwnerUpdateModel): Observable<IOwner> {

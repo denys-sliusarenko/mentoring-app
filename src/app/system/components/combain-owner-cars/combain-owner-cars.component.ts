@@ -9,6 +9,8 @@ import { IOwner } from '../../models/OwnerModels/owner.model';
 import { CarService } from '../../services/car.service';
 import { OwnerCarsService } from '../../services/owner-cars.service';
 import { OwnerService } from '../../services/owner.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalConfirmWindowComponent } from 'src/app/shared/components/modal-confirm-window/modal-confirm-window.component';
 
 @Component({
   selector: 'app-combain-owner-cars',
@@ -19,6 +21,7 @@ export class CombainOwnerCarsComponent implements OnInit {
 
   constructor(private ownerService: OwnerService,
     public ownerCarService: OwnerCarsService,
+    public dialog: MatDialog,
     private carService: CarService,
     private snackBar: MatSnackBar) { }
 
@@ -66,39 +69,57 @@ export class CombainOwnerCarsComponent implements OnInit {
   }
 
   deleteOwnerCar(idOwnerCar: string) {
-    this.savedOrDeletedOwnerCar = true
 
-    this.ownerCarService.deleteOwnerCar(idOwnerCar).subscribe(() => {
-      this.snackBar.open("Deleted", "Ok", {
-        duration: 5000
-      });
-      this.ownerCars = this.ownerCars.filter(item => item.id != idOwnerCar);
+    const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
+      data: { question: `Do you want remove car for owner?` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.savedOrDeletedOwnerCar = true
+        this.ownerCarService.deleteOwnerCar(idOwnerCar).subscribe(() => {
+          this.snackBar.open("Deleted", "Ok", {
+            duration: 5000
+          });
+          this.ownerCars = this.ownerCars.filter(item => item.id != idOwnerCar);
 
-      this.dataSource.data = this.ownerCars
-      this.ownerCarCreateForm.controls['carId'].reset()
-      this.ownerCarCreateForm.controls['registrationNumber'].reset()
-      this.savedOrDeletedOwnerCar = false
-    }
-    )
+          this.dataSource.data = this.ownerCars
+          this.ownerCarCreateForm.controls['carId'].reset()
+          this.ownerCarCreateForm.controls['registrationNumber'].reset()
+          this.savedOrDeletedOwnerCar = false
+        }
+        )
+      }
+    })
   }
+
   saveOwnerCar() {
-    this.savedOrDeletedOwnerCar = true
-    const formData = this.ownerCarCreateForm.value
-    var model = new OwnerCarCreateModel(formData.carId, formData.ownerId, formData.registrationNumber)
 
-    this.ownerCarService.createOwnerCar(model).subscribe((response: IOwnerCar) => {
-      this.snackBar.open("Saved", "Ok", {
-        duration: 5000
-      });
+    const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
+      data: { question: `Do you want save car for owner?` }
+    });
 
-      this.ownerCars.push(response)
-      this.dataSource.data = this.ownerCars
+    dialogRef.afterClosed().subscribe(result => {
 
-      this.dataSource.data
-      this.ownerCarCreateForm.controls['carId'].reset()
-      this.ownerCarCreateForm.controls['registrationNumber'].reset()
-      this.savedOrDeletedOwnerCar = false
-    }
-    )
+      if (result) {
+        this.savedOrDeletedOwnerCar = true
+        const formData = this.ownerCarCreateForm.value
+        var model = new OwnerCarCreateModel(formData.carId, formData.ownerId, formData.registrationNumber)
+
+        this.ownerCarService.createOwnerCar(model).subscribe((response: IOwnerCar) => {
+          this.snackBar.open("Saved", "Ok", {
+            duration: 5000
+          });
+
+          this.ownerCars.push(response)
+          this.dataSource.data = this.ownerCars
+
+          this.dataSource.data
+          this.ownerCarCreateForm.controls['carId'].reset()
+          this.ownerCarCreateForm.controls['registrationNumber'].reset()
+          this.savedOrDeletedOwnerCar = false
+        }
+        )
+      }
+    })
   }
 }
