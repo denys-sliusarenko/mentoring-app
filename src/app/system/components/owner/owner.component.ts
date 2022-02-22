@@ -1,11 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModalConfirmWindowComponent } from 'src/app/shared/components/modal-confirm-window/modal-confirm-window.component';
+import { RefDirective } from 'src/app/shared/directives/ref.directive';
+import { ModalConfirmWindowModel } from 'src/app/shared/models/modal-confirm-window.model';
 import { IOwner } from '../../models/OwnerModels/owner.model';
 import { OwnerCreateModel } from '../../models/OwnerModels/ownerCreate.model';
 import { OwnerService } from '../../services/owner.service';
 import { ReportService } from '../../services/report.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-owner',
@@ -16,7 +20,8 @@ export class OwnerComponent implements OnInit {
 
   constructor(private ownerService: OwnerService,
     private snackBar: MatSnackBar,
-    private reportService: ReportService) {
+    private reportService: ReportService,
+    public dialog: MatDialog) {
     this.ownerCreateForm = new FormGroup({
       "firstName": new FormControl('', Validators.required),
       "lastName": new FormControl('', Validators.required),
@@ -42,20 +47,30 @@ export class OwnerComponent implements OnInit {
   }
 
   saveNewOwner() {
-    const formData = this.ownerCreateForm.value
-    var model = new OwnerCreateModel(formData.firstName, formData.lastName)
 
-    this.ownerService.createOwner(model).subscribe((response: IOwner) => {
-      this.owners.push(response)
-      this.dataSource.data = this.owners
+    const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
+      data: { question: `Do you want add owner ${this.ownerCreateForm.value.firstName} ${this.ownerCreateForm.value.lastName}?` }
+    });
 
-      this.snackBar.open("Saved", "Ok", {
-        duration: 5000
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result) {
+        const formData = this.ownerCreateForm.value
+        var model = new OwnerCreateModel(formData.firstName, formData.lastName)
 
-      this.ownerCreateForm.reset()
-    }
-    )
+        this.ownerService.createOwner(model).subscribe((response: IOwner) => {
+          this.owners.push(response)
+          this.dataSource.data = this.owners
+
+          this.snackBar.open("Saved", "Ok", {
+            duration: 5000
+          });
+
+          this.ownerCreateForm.reset()
+        })
+      }
+    });
+
   }
 
   getOwnersReport() {

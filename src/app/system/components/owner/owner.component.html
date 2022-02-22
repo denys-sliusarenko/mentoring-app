@@ -1,3 +1,5 @@
+<!-- <button (click)="showModal()">show</button> -->
+
 <div *ngIf="!isOwnersLoaded else ownersLoaded">
   <app-loader></app-loader>
 </div>
@@ -51,6 +53,6 @@
   </table>
 
   <div  style="float: right;margin-top:1%">
-    <button mat-raised-button  (click)="getOwnersReport()" color="primary">Dowload report</button><!---->
+    <button mat-raised-button  (click)="getOwnersReport()" color="primary">Dowload report</button>
 </div>
 </ng-template>

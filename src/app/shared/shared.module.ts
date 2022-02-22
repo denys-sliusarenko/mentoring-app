@@ -17,12 +17,17 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
+import { RefDirective } from './directives/ref.directive';
+import { ModalConfirmWindowComponent } from './components/modal-confirm-window/modal-confirm-window.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
     LoaderComponent,
     NotFoundComponent,
+    RefDirective,
+    ModalConfirmWindowComponent,
   ],
   imports: [
     CommonModule,
@@ -41,12 +46,15 @@ import {MatSelectModule} from '@angular/material/select';
     MatSnackBarModule,
     MatTabsModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   exports: [
     FormsModule,
+    RefDirective,
     ReactiveFormsModule,
     LoaderComponent,
+    ModalConfirmWindowComponent,
     MatSliderModule,
     MatTableModule,
     MatSortModule,
@@ -60,7 +68,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatSnackBarModule,
     MatTabsModule,
     MatExpansionModule,
-    MatSelectModule
-  ]
+    MatSelectModule,
+    MatDialogModule
+  ],
+  entryComponents:[ ModalConfirmWindowComponent]
 })
 export class SharedModule { }
