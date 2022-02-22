@@ -19,29 +19,12 @@ export class CarService extends BaseAPI {
     return this.get('/api/cars')
   }
 
- createCar(model: CarCreateModel): Observable<ICar> {
-    return this.post('/api/cars',model)
+  createCar(model: CarCreateModel): Observable<ICar> {
+    return this.post('/api/cars', model)
   }
 
-  deleteCar(idCar:string){
+  deleteCar(idCar: string) {
     return this.delete(`/api/cars/${idCar}`)
   }
-
-//   getOwner(Id: Guid): Observable<IOwner[]> {
-//     return this.get(`/api/owners/id=${Id}`)
-//   }
-
-
-//   createOwner(model: OwnerCreateModel): Observable<IOwner[]> {
-//     return this.post("/api/owners", model)
-//   }
-
-//   deleteOwner(Id: Guid): Observable<IOwner[]> {
-//     return this.delete(`/api/owners/id=${Id}`)
-//   }
-
-//   updateOwner(model: OwnerUpdateModel): Observable<IOwner[]> {
-//     return this.put("/api/owners", model)
-//   }
 
 }

@@ -29,7 +29,7 @@ export class OwnerComponent implements OnInit {
   }
   private owners: IOwner[] = []
 
-  displayedColumns: string[] = ['id', 'FirstName', 'LastName',"delete"];
+  displayedColumns: string[] = ['id', 'FirstName', 'LastName', "delete"];
   dataSource = new MatTableDataSource<IOwner>();
   clickedRows = new Set<IOwner>();
   isOwnersLoaded = false
@@ -49,7 +49,7 @@ export class OwnerComponent implements OnInit {
   saveNewOwner() {
 
     const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
-      data: { question: `Do you want add owner ${this.ownerCreateForm.value.firstName} ${this.ownerCreateForm.value.lastName}?` }
+      data: { question: `Do you want save owner ${this.ownerCreateForm.value.firstName} ${this.ownerCreateForm.value.lastName}?` }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -77,22 +77,30 @@ export class OwnerComponent implements OnInit {
     this.reportService.getOwnersTextReport()
   }
 
+  deleteOwner(idOwner: string, firstName: string, lastName: string) {
+  
+    const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
+      data: { question: `Do you want remove owner ${firstName} ${lastName}?` }
+    });
 
-  deleteOwner(idOwner:string){
-    this.ownerService.deleteOwner(idOwner).subscribe(
-      {
-        next: () => {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ownerService.deleteOwner(idOwner).subscribe(
+          {
+            next: () => {
 
-          this.owners = this.owners.filter(item => item.id != idOwner);
+              this.owners = this.owners.filter(item => item.id != idOwner);
 
-          this.dataSource.data = this.owners
+              this.dataSource.data = this.owners
 
-          this.snackBar.open("Deleted", "Ok", {
-            duration: 5000
-          });
-        },
-        error: (e) => console.error(e),
+              this.snackBar.open("Deleted", "Ok", {
+                duration: 5000
+              });
+            },
+            error: (e) => console.error(e),
+          }
+        )
       }
-    )
+    })
   }
 }

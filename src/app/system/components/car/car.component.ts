@@ -6,6 +6,8 @@ import { CarCreateModel } from '../../models/CarModels/car-create.model';
 import { ICar } from '../../models/CarModels/car.models';
 import { CarService } from '../../services/car.service';
 import { ReportService } from '../../services/report.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalConfirmWindowComponent } from 'src/app/shared/components/modal-confirm-window/modal-confirm-window.component';
 
 @Component({
   selector: 'app-car',
@@ -15,10 +17,11 @@ import { ReportService } from '../../services/report.service';
 export class CarComponent implements OnInit {
 
   constructor(private carService: CarService,
+    public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private reportService: ReportService) { }
 
-  displayedColumns: string[] = ['id', 'brand', 'color',"delete"];
+  displayedColumns: string[] = ['id', 'brand', 'color', "delete"];
   cars: ICar[] = []
   clickedRows = new Set<ICar>();
   isCarsLoaded = false
@@ -42,41 +45,56 @@ export class CarComponent implements OnInit {
   }
 
   saveNewCar() {
-    const formData = this.carCreateForm.value
-    var model = new CarCreateModel(formData.color, formData.brand)
+    const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
+      data: { question: `Do you want save car ${this.carCreateForm.value.color} ${this.carCreateForm.value.brand}?` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
 
-    this.carService.createCar(model).subscribe(
-      {
-        next: (response: ICar) => {
-          this.cars.push(response)
-          this.dataSource.data = this.cars
+      if (result) {
+        const formData = this.carCreateForm.value
+        var model = new CarCreateModel(formData.color, formData.brand)
 
-          this.snackBar.open("Saved", "Ok", {
-            duration: 5000
-          });
-          this.carCreateForm.reset()
-        },
-        error: (e) => console.error(e),
+        this.carService.createCar(model).subscribe(
+          {
+            next: (response: ICar) => {
+              this.cars.push(response)
+              this.dataSource.data = this.cars
+
+              this.snackBar.open("Saved", "Ok", {
+                duration: 5000
+              });
+              this.carCreateForm.reset()
+            },
+            error: (e) => console.error(e),
+          }
+        )
       }
-    )
+    })
   }
 
-  deleteCar(idCar:string){
-    this.carService.deleteCar(idCar).subscribe(
-      {
-        next: () => {
+  deleteCar(idCar: string, brand: string, color: string) {
 
-          this.cars = this.cars.filter(item => item.id != idCar);
+    const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
+      data: { question: `Do you want remove car ${color} ${brand}?` }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.carService.deleteCar(idCar).subscribe(
+          {
+            next: () => {
 
-          this.dataSource.data = this.cars
+              this.cars = this.cars.filter(item => item.id != idCar);
 
-          this.snackBar.open("Deleted", "Ok", {
-            duration: 5000
-          });
-        },
-        error: (e) => console.error(e),
+              this.dataSource.data = this.cars
+
+              this.snackBar.open("Deleted", "Ok", {
+                duration: 5000
+              });
+            },
+            error: (e) => console.error(e),
+          }
+        )
       }
-    )
+    })
   }
-
 }
