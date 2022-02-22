@@ -16,11 +16,11 @@ export class BaseAPI {
         return this.baseServeUrl.concat(url);
     }
 
-    public get(url: string = ''): Observable<any> {
+    protected get(url: string = ''): Observable<any> {
         return this.http.get(this.getUrl(url))
     }
 
-    public post(url: string = '', body: any): Observable<any> {
+    protected post(url: string = '', body: any): Observable<any> {
         
         const headers = new HttpHeaders({
             'Content-Type':'application/json; charset=utf8'
@@ -28,11 +28,11 @@ export class BaseAPI {
         return this.http.post(this.getUrl(url), body,{headers})
     }
 
-    public delete(url: string = ''): Observable<any> {
+    protected delete(url: string = ''): Observable<any> {
         return this.http.delete(this.getUrl(url))
     }
 
-    public put(url: string = '', body: any): Observable<any> {
+    protected put(url: string = '', body: any): Observable<any> {
         return this.http.put(this.getUrl(url), body)
     }
 }

@@ -23,6 +23,10 @@ export class CarService extends BaseAPI {
     return this.post('/api/cars',model)
   }
 
+  deleteCar(idCar:string){
+    return this.delete(`/api/cars/${idCar}`)
+  }
+
 //   getOwner(Id: Guid): Observable<IOwner[]> {
 //     return this.get(`/api/owners/id=${Id}`)
 //   }

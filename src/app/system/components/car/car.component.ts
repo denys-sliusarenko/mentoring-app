@@ -15,10 +15,10 @@ import { ReportService } from '../../services/report.service';
 export class CarComponent implements OnInit {
 
   constructor(private carService: CarService,
-    private snackBar: MatSnackBar, 
+    private snackBar: MatSnackBar,
     private reportService: ReportService) { }
 
-  displayedColumns: string[] = ['id', 'brand', 'color'];
+  displayedColumns: string[] = ['id', 'brand', 'color',"delete"];
   cars: ICar[] = []
   clickedRows = new Set<ICar>();
   isCarsLoaded = false
@@ -37,24 +37,45 @@ export class CarComponent implements OnInit {
     })
   }
 
-  getCarsReport(){
+  getCarsReport() {
     this.reportService.getCarsTextReport()
   }
 
-  saveNewCar(){
+  saveNewCar() {
     const formData = this.carCreateForm.value
     var model = new CarCreateModel(formData.color, formData.brand)
 
-     this.carService.createCar(model).subscribe((response: ICar) => {
-       this.cars.push(response)
-       this.dataSource.data = this.cars
+    this.carService.createCar(model).subscribe(
+      {
+        next: (response: ICar) => {
+          this.cars.push(response)
+          this.dataSource.data = this.cars
 
-       this.snackBar.open("Saved", "Ok", {
-         duration: 5000
-       });
+          this.snackBar.open("Saved", "Ok", {
+            duration: 5000
+          });
+          this.carCreateForm.reset()
+        },
+        error: (e) => console.error(e),
+      }
+    )
+  }
 
-       this.carCreateForm.reset()
-     }
+  deleteCar(idCar:string){
+    this.carService.deleteCar(idCar).subscribe(
+      {
+        next: () => {
+
+          this.cars = this.cars.filter(item => item.id != idCar);
+
+          this.dataSource.data = this.cars
+
+          this.snackBar.open("Deleted", "Ok", {
+            duration: 5000
+          });
+        },
+        error: (e) => console.error(e),
+      }
     )
   }
 

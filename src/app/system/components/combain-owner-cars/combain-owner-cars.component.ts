@@ -72,7 +72,7 @@ export class CombainOwnerCarsComponent implements OnInit {
       this.snackBar.open("Deleted", "Ok", {
         duration: 5000
       });
-      this.ownerCars = this.ownerCars.filter(item => item.id !== idOwnerCar);
+      this.ownerCars = this.ownerCars.filter(item => item.id != idOwnerCar);
 
       this.dataSource.data = this.ownerCars
       this.ownerCarCreateForm.controls['carId'].reset()
