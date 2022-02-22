@@ -29,7 +29,7 @@ export class OwnerComponent implements OnInit {
   }
   private owners: IOwner[] = []
 
-  displayedColumns: string[] = ['id', 'FirstName', 'LastName'];
+  displayedColumns: string[] = ['id', 'FirstName', 'LastName',"delete"];
   dataSource = new MatTableDataSource<IOwner>();
   clickedRows = new Set<IOwner>();
   isOwnersLoaded = false
@@ -75,5 +75,24 @@ export class OwnerComponent implements OnInit {
 
   getOwnersReport() {
     this.reportService.getOwnersTextReport()
+  }
+
+
+  deleteOwner(idOwner:string){
+    this.ownerService.deleteOwner(idOwner).subscribe(
+      {
+        next: () => {
+
+          this.owners = this.owners.filter(item => item.id != idOwner);
+
+          this.dataSource.data = this.owners
+
+          this.snackBar.open("Deleted", "Ok", {
+            duration: 5000
+          });
+        },
+        error: (e) => console.error(e),
+      }
+    )
   }
 }
