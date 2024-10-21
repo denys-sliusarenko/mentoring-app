@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class OwnerCarsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
-  
+
   ngOnInit(): void {
     if (this.route.snapshot.children[0] == undefined) {
       this.activeLink = ''
@@ -23,5 +23,5 @@ export class OwnerCarsComponent implements OnInit {
     { path: 'all-owner-cars', tabName: 'All owners and cars' },
     { path: 'combain-owner-cars', tabName: 'Combain owner cars' }];
 
-  activeLink =this.links[0].path 
+  activeLink = this.links[0].path
 }

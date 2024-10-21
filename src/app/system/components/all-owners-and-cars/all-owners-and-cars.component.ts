@@ -10,18 +10,18 @@ import { ReportService } from '../../services/report.service';
 })
 export class AllOwnersAndCarsComponent implements OnInit {
 
-  constructor(private ownerService: OwnerService,private reportService:ReportService) { }
+  constructor(private ownerService: OwnerService, private reportService: ReportService) { }
 
   owners: IOwner[] = []
   isOwnersLoaded = false
-  
+
   ngOnInit(): void {
-       this.ownerService.getAllOwners().subscribe((response: IOwner[]) => {
-       this.owners = response
-       this.isOwnersLoaded = true
-     })
+    this.ownerService.getAllOwners().subscribe((response: IOwner[]) => {
+      this.owners = response
+      this.isOwnersLoaded = true
+    })
   }
-  getOwnerCarsTextReport(){
+  getOwnerCarsTextReport() {
     this.reportService.getOwnerCarsTextReport();
   }
 }

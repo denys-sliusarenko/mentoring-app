@@ -78,7 +78,7 @@ export class OwnerComponent implements OnInit {
   }
 
   deleteOwner(idOwner: string, firstName: string, lastName: string) {
-  
+
     const dialogRef = this.dialog.open(ModalConfirmWindowComponent, {
       data: { question: `Do you want remove owner ${firstName} ${lastName}?` }
     });
